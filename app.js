@@ -23,8 +23,65 @@ app.get('/articles', (req, res) => {
     })
 })
 
+app.get('/articles/:id', (req, res) => {
+    const id = req.params.id;
+    let data;
+    for(let i = 0; i < articles.length; i++){
+        if(articles[i].id == id){
+            data = articles[i];
+            break;   
+        }
+    }
+    res.json({
+        data
+    })
+})
+
 app.post('/articles', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
+    articles.push(req.body);
+    res.json({
+        message: "Article created successfully",
+    })
+    
+})
+// app.patch('/articles/:id', (req, res) => {
+//     // console.log(req.body);
+//     // articles.push(req.body);
+//     // res.json({
+//     //     message: "Article created successfully",
+//     // })
+//     // const id = req.params.id;
+//     for(let i = 0; i < articles.length; i++){
+//         if(articles[i].id == req.params.id){
+//             articles[i].name = req.body.name;
+//             articles[i].email = req.body.email;
+//             res.json({
+//                 message: "Article updated successfully",
+//             })
+//         }
+//         else{
+//             res.json({
+//                 message: "Article not found",
+//             })
+//         }
+//     }
+
+    
+// })
+app.delete('/articles/:id', (req, res) => {
+    // console.log(req.body);
+    const id = req.params.id;
+    let data = [];
+    for(let i = 0; i < articles.length; i++){
+        if(articles[i].id != id){
+            data.push(articles[i]);
+        }
+    }
+    res.json({
+        data,
+        message: "Article deleted successfully",
+    })
 })
 
 app.get('/', (req, res) => {
